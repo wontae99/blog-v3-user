@@ -82,7 +82,7 @@ class Comment(db.Model):
     author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     post_id = db.Column(db.Integer, db.ForeignKey("blog_posts.id"))
     parent_post = relationship("BlogPost", back_populates="comments")
-db.create_all()
+# db.create_all()
 
 @app.route('/')
 def get_all_posts():
