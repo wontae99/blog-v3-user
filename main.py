@@ -69,7 +69,7 @@ class BlogPost(db.Model):
     subtitle = db.Column(db.String(250), nullable=False)
     date = db.Column(db.String(250), nullable=False)
     body = db.Column(db.Text, nullable=False)
-    img_url = db.Column(db.String(300), nullable=False)
+    img_url = db.Column(db.String, nullable=False)
     comments = relationship("Comment", back_populates="parent_post")
 # db.create_all()
 
@@ -82,7 +82,7 @@ class Comment(db.Model):
     author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     post_id = db.Column(db.Integer, db.ForeignKey("blog_posts.id"))
     parent_post = relationship("BlogPost", back_populates="comments")
-# db.create_all()
+db.create_all()
 
 @app.route('/')
 def get_all_posts():
