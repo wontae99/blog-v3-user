@@ -77,7 +77,7 @@ class BlogPost(db.Model):
 class Comment(db.Model):
     __tablename__ = "comments"
     id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.Text(250), nullable=False)
+    text = db.Column(db.Text, nullable=False)
     comment_author = relationship("Users", back_populates="comments")
     author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     post_id = db.Column(db.Integer, db.ForeignKey("blog_posts.id"))
