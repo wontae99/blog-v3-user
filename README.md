@@ -11,6 +11,8 @@ this is a updated project of my-personal-blog
 5. added adding comment function
 6. footer now display this year and updates automatically
 
+
+#Documents
 <!-- flast-login -->
 https://flask-login.readthedocs.io/en/latest/#flask_login.LoginManager.login_view
 <!-- wtforms-validators -->
