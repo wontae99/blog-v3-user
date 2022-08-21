@@ -15,5 +15,7 @@ this is a updated project of my-personal-blog
 https://flask-login.readthedocs.io/en/latest/#flask_login.LoginManager.login_view
 <!-- wtforms-validators -->
 https://wtforms.readthedocs.io/en/2.3.x/validators/
-#flask-ckeditor
+<!-- #flask-ckeditor -->
 https://flask-ckeditor.readthedocs.io/en/latest/basic.html
+<!-- flask-gravatar(comment icon) -->
+https://pythonhosted.org/Flask-Gravatar/
