@@ -10,3 +10,8 @@ this is a updated project of my-personal-blog
 4. added adding/delete post function (for only admin)
 5. added adding comment function
 6. footer now display this year and updates automatically
+
+#flast-login
+https://flask-login.readthedocs.io/en/latest/#flask_login.LoginManager.login_view
+#wtforms-validators
+https://wtforms.readthedocs.io/en/2.3.x/validators/
