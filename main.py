@@ -17,7 +17,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 ckeditor = CKEditor(app)
 Bootstrap(app)
-
+year = date.today().year
 ##CONNECT TO DB
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', "sqlite:///blog.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -87,11 +87,12 @@ db.create_all()
 @app.route('/')
 def get_all_posts():
     posts = BlogPost.query.all()
+
     try:
-        return render_template("index.html", all_posts=posts,
+        return render_template("index.html", all_posts=posts, year=year,
                            logged_in=current_user.is_authenticated, user_id=current_user.id)
     except AttributeError:
-        return render_template("index.html", all_posts=posts)
+        return render_template("index.html", all_posts=posts, year=year)
 
 
 @app.route('/register', methods=['GET','POST'])
@@ -114,7 +115,7 @@ def register():
             db.session.add(new_user)
             db.session.commit()
             return redirect(url_for('login'))
-    return render_template("register.html", form=form)
+    return render_template("register.html", form=form, year=year)
 
 
 @app.route('/login', methods=['GET','POST'])
@@ -133,7 +134,7 @@ def login():
         else:
             flash("Not existing email. Please check your email address again.", 'error')
             return redirect(url_for('login'))
-    return render_template("login.html", form=form)
+    return render_template("login.html", form=form, year=year)
 
 
 @app.route('/logout')
@@ -167,19 +168,20 @@ def show_post(post_id):
                                post=requested_post,
                                form=form,
                                logged_in=current_user.is_authenticated,
-                               user_id=current_user.id)
+                               user_id=current_user.id,
+                               year=year)
     except AttributeError:
-        return render_template("post.html", post=requested_post, form=form)
+        return render_template("post.html", post=requested_post, form=form, year=year)
 
 
 @app.route("/about")
 def about():
-    return render_template("about.html", logged_in=current_user.is_authenticated)
+    return render_template("about.html", logged_in=current_user.is_authenticated, year=year)
 
 
 @app.route("/contact")
 def contact():
-    return render_template("contact.html", logged_in=current_user.is_authenticated)
+    return render_template("contact.html", logged_in=current_user.is_authenticated, year=year)
 
 
 @app.route("/new-post", methods=['GET','POST'])
@@ -200,8 +202,11 @@ def add_new_post():
         db.session.commit()
         return redirect(url_for("get_all_posts"))
 
-    return render_template("make-post.html", form=form,
-                           logged_in=current_user.is_authenticated, user_id=current_user.id)
+    return render_template("make-post.html",
+                           form=form,
+                           logged_in=current_user.is_authenticated,
+                           user_id=current_user.id,
+                           year=year)
 
 
 @app.route("/edit-post/<int:post_id>", methods=['GET','POST'])
@@ -221,8 +226,11 @@ def edit_post(post_id):
         post.body = edit_form.body.data
         db.session.commit()
         return redirect(url_for("show_post", post_id=post.id))
-    return render_template("make-post.html", form=edit_form,
-                           logged_in=current_user.is_authenticated, user_id=current_user.id)
+    return render_template("make-post.html",
+                           form=edit_form,
+                           logged_in=current_user.is_authenticated,
+                           user_id=current_user.id,
+                           year=year)
 
 
 @app.route("/delete/<int:post_id>", methods=['GET','POST'])
